@@ -1,0 +1,153 @@
+{# ===== MODIFICATO PER DESIGN ITALIA - COMUNE DI BRESCIA ===== #}
+{%- block doctype %}<!DOCTYPE html>{% endblock -%}
+
+{%- block htmltag -%}
+{% set lang = h.lang() %}
+<!--[if IE 9]> <html lang="{{ lang }}" class="ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ lang }}" {% if h.is_rtl_language() %} dir="rtl" {% endif %} class="it-header-wrapper"> <!--<![endif]-->
+{%- endblock -%}
+
+  <head{% block headtag %}{% endblock %}>
+    {%- block meta -%}
+      <meta charset="utf-8" />
+      <meta name="csrf_field_name" content="{{ g.csrf_field_name }}" />
+      <meta name="{{ g.csrf_field_name }}" content="{{ csrf_token() }}" />
+
+      {% block meta_generator %}<meta name="generator" content="ckan {{ h.ckan_version() }}" />{% endblock %}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {%- endblock -%}
+
+    <title>
+      {%- block title -%}
+        {%- block subtitle %}{% endblock -%}
+        {%- if self.subtitle()|trim %} {{ g.template_title_delimiter }} {% endif -%}
+        {{ g.site_title }}
+      {%- endblock -%}
+    </title>
+
+    {% block links -%}
+      <link rel="shortcut icon" href="{{ g.favicon }}" />
+      
+      {# Design Italia CSS #}
+      <link rel="stylesheet" href="{{ h.url_for_static('/base/css/design-italia.css') }}">
+      
+      {# Custom CSS Comune di Brescia #}
+      <link rel="stylesheet" href="{{ h.url_for_static('/base/css/custom.css') }}">
+      
+      {# Font Titillium Web #}
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap">
+    {% endblock -%}
+
+    {# CKAN styles #}
+    {%- block styles %}
+      {% set theme = h.get_rtl_theme() if h.is_rtl_language() else g.theme %}
+      {% asset theme %}
+    {% endblock %}
+
+    {{ h.render_assets('style') }}
+    
+    {%- block custom_styles %}
+      {%- if g.site_custom_css -%}
+      <style>
+        {{ g.site_custom_css | safe }}
+      </style>
+      {%- endif %}
+    {% endblock %}
+
+    {%- block head_extras %}
+    {% endblock %}
+  </head>
+
+  <body{% block bodytag %} data-site-root="{{ h.url_for('home.index', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('home.index', qualified=true) }}" {% endblock %}>
+
+    {# ===== SKIPLINKS ===== #}
+    <div class="skiplink">
+      <a href="#main-content" class="visually-hidden-focusable">Vai al contenuto principale</a>
+    </div>
+
+    {# ===== HEADER DESIGN ITALIA PERSONALIZZATO ===== #}
+    <header>
+      {# Header superiore - Info Comune #}
+      <div class="it-header-slim-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="it-header-slim-wrapper-content">
+                <a class="d-none d-lg-block navbar-brand" href="https://www.comune.brescia.it">
+                  Comune di Brescia - Piazza Loggia, 1 - 25121 Brescia
+                </a>
+                <div class="nav-mobile">
+                  <nav>
+                    <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#menu-header" role="button" aria-expanded="false" aria-controls="menu-header">
+                      <span>Comune di Brescia</span>
+                      <svg class="icon">
+                        <use xlink:href="{{ h.url_for_static('/base/images/sprite.svg#it-expand') }}"></use>
+                      </svg>
+                    </a>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {# Header principale con logo #}
+      <div class="it-header-navbar-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              {# Logo e brand #}
+              <div class="it-header-center-wrapper">
+                <div class="it-header-center-content-wrapper">
+                  <div class="it-brand-wrapper">
+                    <a href="{{ h.url_for('home.index') }}">
+                      <img src="{{ h.url_for_static('/base/images/logo-comune-brescia.png') }}" alt="Comune di Brescia - Open Data" class="it-brand-image">
+                      <div class="it-brand-text">
+                        <h2 class="no_toc">Open Data</h2>
+                        <h3 class="no_toc d-none d-md-block">Comune di Brescia - Settore Transizione Digitale</h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {# Navigation menu Design Italia personalizzato #}
+              {% include "header_design_italia.html" %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {# ===== CONTENUTO CKAN (con header CKAN nascosto ma funzionale) ===== #}
+    <main id="main-content">
+      {# Header CKAN nascosto ma presente per funzionalità #}
+      <div style="display: none;">
+        {% block header %}
+          {% include "header.html" %}
+        {% endblock %}
+      </div>
+
+      {%- block page %}
+        {{ super() }}
+      {% endblock -%}
+    </main>
+
+    {# ===== FOOTER ===== #}
+    {%- block footer %}
+      {% include "footer.html" %}
+    {% endblock -%}
+
+    {# ===== SCRIPTS ===== #}
+    {%- block scripts %}
+      <script src="{{ h.url_for_static('/base/js/design-italia.js') }}"></script>
+      <script src="{{ h.url_for_static('/base/js/custom.js') }}"></script>
+      {% asset 'base_js' %}
+    {% endblock -%}
+
+    {{ h.render_assets('style') }}
+    {{ h.render_assets('script') }}
+  </body>
+</html>

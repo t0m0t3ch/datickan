@@ -1,0 +1,190 @@
+/* custom.css - Tema CKAN Comune di Brescia */
+:root {
+  /* Color palette Comune di Brescia */
+  --bs-primary: #005C97;
+  --bs-primary-dark: #003D66;
+  --bs-primary-darker: #002844;
+  --bs-secondary: #E37222;
+  --bs-secondary-dark: #c45c18;
+  --bs-light: #F5F5F5;
+  --bs-white: #FFFFFF;
+  --bs-dark: #333333;
+  --bs-gray: #6c757d;
+}
+
+/* ===== RESET E IMPOSTAZIONI BASE ===== */
+body {
+  font-family: 'Titillium Web', sans-serif;
+  line-height: 1.6;
+  color: var(--bs-dark);
+}
+
+/* ===== HEADER E NAVIGATION ===== */
+
+/* Header superiore (account masthead) */
+.account-masthead {
+  background-color: var(--bs-primary-dark) !important;
+  border-bottom: none;
+}
+
+.account-masthead .account ul li a {
+  color: var(--bs-white) !important;
+}
+
+.account-masthead .account ul li a:hover {
+  background-color: var(--bs-primary-darker) !important;
+}
+
+/* Header principale */
+.masthead {
+  background-color: var(--bs-primary) !important;
+  border-bottom: none;
+}
+
+.navbar-brand img {
+  max-height: 50px;
+}
+
+/* Navigation items */
+.nav-item.active .nav-link {
+  color: var(--bs-secondary) !important;
+  border-bottom: 3px solid var(--bs-secondary);
+  font-weight: 600;
+}
+
+.nav-link {
+  color: var(--bs-white) !important;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--bs-secondary) !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== COMPONENTI CKAN ===== */
+
+/* Bottoni */
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--bs-primary-dark);
+  border-color: var(--bs-primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+  color: var(--bs-white);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bs-secondary-dark);
+  border-color: var(--bs-secondary-dark);
+}
+
+/* Search button specifico */
+.btn-search {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+}
+
+/* Cards dataset */
+.module-content {
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.module-content:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.module-heading {
+  background-color: var(--bs-primary);
+  color: var(--bs-white);
+  border-radius: 8px 8px 0 0;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+}
+
+/* Form elements */
+.form-control:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.2rem rgba(0, 92, 151, 0.25);
+}
+
+/* ===== HOMEPAGE ===== */
+.hero {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-primary-dark) 100%);
+  color: var(--bs-white);
+  padding: 4rem 0;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background-color: var(--bs-primary-dark);
+  color: var(--bs-white);
+  padding: 3rem 0 2rem;
+  margin-top: 3rem;
+}
+
+.site-footer a {
+  color: var(--bs-white);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--bs-secondary);
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .navbar-brand img {
+    max-height: 40px;
+  }
+  
+  .hero {
+    padding: 2rem 0;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===== ACCESSIBILITÀ ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible per accessibilità */
+a:focus, button:focus, .btn:focus {
+  outline: 2px solid var(--bs-secondary);
+  outline-offset: 2px;
+}

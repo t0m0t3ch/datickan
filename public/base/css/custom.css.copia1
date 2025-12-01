@@ -1,0 +1,238 @@
+/* custom.css - Tema CKAN Comune di Brescia - VERSIONE CORRETTA */
+:root {
+  /* Color palette Comune di Brescia */
+  --bs-primary: #005C97;
+  --bs-primary-dark: #003D66;
+  --bs-primary-darker: #002844;
+  --bs-secondary: #E37222;
+  --bs-secondary-dark: #c45c18;
+  --bs-light: #F5F5F5;
+  --bs-white: #FFFFFF;
+  --bs-dark: #333333;
+}
+
+/* ===== OVERRIDE DESIGN ITALIA COLORS ===== */
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.bg-dark {
+  background-color: var(--bs-primary-dark) !important;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+/* ===== HEADER DESIGN ITALIA PERSONALIZZATO ===== */
+
+/* Header superiore - Slim Header */
+.it-header-slim-wrapper {
+  background-color: var(--bs-primary-dark) !important;
+}
+
+.it-header-slim-wrapper .it-header-slim-wrapper-content {
+  background-color: var(--bs-primary-dark) !important;
+}
+
+/* Header principale */
+.it-header-navbar-wrapper {
+  background-color: var(--bs-primary) !important;
+}
+
+.it-header-center-wrapper {
+  background-color: var(--bs-primary) !important;
+}
+
+/* Logo e brand */
+.it-brand-text h2 {
+  color: var(--bs-white) !important;
+  font-weight: 600;
+}
+
+.it-brand-text h3 {
+  color: var(--bs-white) !important;
+  opacity: 0.9;
+}
+
+/* Navigation menu */
+.navbar .nav-link {
+  color: var(--bs-white) !important;
+  font-weight: 500;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: var(--bs-secondary) !important;
+}
+
+.navbar .nav-item.active .nav-link {
+  color: var(--bs-secondary) !important;
+  border-bottom: 3px solid var(--bs-secondary);
+}
+
+/* ===== COMPONENTI CKAN INTEGRATI ===== */
+
+/* Bottoni - Override Design Italia */
+.btn-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--bs-primary-dark) !important;
+  border-color: var(--bs-primary-dark) !important;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--bs-secondary-dark) !important;
+  border-color: var(--bs-secondary-dark) !important;
+}
+
+/* Search button */
+.btn-search {
+  background-color: var(--bs-secondary) !important;
+  border-color: var(--bs-secondary) !important;
+}
+
+/* Cards dataset - Migliora l'aspetto */
+.module-content {
+  border: 1px solid #e1e4e8;
+  border-radius: 8px !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.module-content:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  transform: translateY(-2px);
+}
+
+.module-heading {
+  background-color: var(--bs-primary) !important;
+  color: var(--bs-white) !important;
+  border-radius: 8px 8px 0 0 !important;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+}
+
+/* Form elements */
+.form-control:focus {
+  border-color: var(--bs-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 92, 151, 0.25) !important;
+}
+
+/* ===== HOMEPAGE ===== */
+.hero {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-primary-dark) 100%) !important;
+  color: var(--bs-white);
+  padding: 4rem 0;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--bs-white) !important;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  color: var(--bs-white) !important;
+}
+
+/* ===== FOOTER DESIGN ITALIA PERSONALIZZATO ===== */
+.it-footer {
+  background-color: var(--bs-primary-dark) !important;
+  color: var(--bs-white);
+  margin-top: 3rem;
+}
+
+.it-footer-main {
+  background-color: var(--bs-primary-dark) !important;
+}
+
+.it-footer-small-prints {
+  background-color: var(--bs-primary-darker) !important;
+}
+
+.it-footer a {
+  color: var(--bs-white) !important;
+  text-decoration: none;
+}
+
+.it-footer a:hover {
+  color: var(--bs-secondary) !important;
+  text-decoration: underline;
+}
+
+/* ===== COMPATIBILITÀ CKAN ===== */
+
+/* Nascondi header CKAN originale - IMPORTANTE */
+.account-masthead,
+.masthead {
+  display: none !important;
+}
+
+/* Main content spacing */
+.main {
+  padding-top: 2rem;
+  min-height: 60vh;
+}
+
+/* Migliora breadcrumb */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0.75rem 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .it-brand-text h2 {
+    font-size: 1.25rem;
+  }
+  
+  .it-brand-text h3 {
+    font-size: 1rem;
+  }
+  
+  .hero {
+    padding: 2rem 0;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===== ACCESSIBILITÀ ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible per accessibilità */
+a:focus,
+button:focus, 
+.btn:focus,
+.form-control:focus {
+  outline: 2px solid var(--bs-secondary) !important;
+  outline-offset: 2px;
+}
+
+/* Contrasto migliorato per accessibilità */
+.text-muted {
+  color: #6c757d !important;
+}

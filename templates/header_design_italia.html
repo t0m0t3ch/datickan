@@ -1,0 +1,64 @@
+{# header_design_italia.html - Versione semplificata e funzionale #}
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBrescia">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarBrescia">
+      {# Menu principale #}
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ h.url_for('dataset.search') }}">DATASET</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ h.url_for('organization.index') }}">ORGANIZZAZIONI</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ h.url_for('group.index') }}">GRUPPI</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ h.url_for('home.about') }}">INFORMAZIONI</a>
+        </li>
+      </ul>
+
+      {# Ricerca #}
+      <form class="d-flex me-3" action="{{ h.url_for('dataset.search') }}" method="get">
+        <input class="form-control" type="search" name="q" placeholder="Cerca dataset..." aria-label="Cerca">
+        <button class="btn btn-outline-light ms-2" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+
+      {# Utente #}
+      <div class="navbar-nav">
+        {% if c.userobj %}
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fa fa-user me-1"></i>{{ c.userobj.display_name }}
+            </a>
+            <ul class="dropdown-menu">
+              {% if c.userobj.sysadmin %}
+                <li><a class="dropdown-item" href="{{ h.url_for('admin.index') }}">Amministrazione</a></li>
+              {% endif %}
+              <li><a class="dropdown-item" href="{{ h.url_for('user.read', id=c.userobj.name) }}">Profilo</a></li>
+              <li><a class="dropdown-item" href="{{ h.url_for('dashboard.datasets') }}">Dashboard</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <form action="{{ h.url_for('user.logout') }}" method="post">
+                  {{ h.csrf_input() }}
+                  <button class="dropdown-item" type="submit">Esci</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        {% else %}
+          <a class="nav-link" href="{{ h.url_for('user.login') }}">ACCEDI</a>
+          {% if h.check_access('user_create') %}
+            <a class="nav-link" href="{{ h.url_for('user.register') }}">REGISTRATI</a>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>

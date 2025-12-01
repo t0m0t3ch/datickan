@@ -1,0 +1,116 @@
+{# header.html - Versione personalizzata per Design Italia Comune di Brescia #}
+
+{% set dataset_type = h.default_package_type() %}
+
+{% block header_wrapper %}
+<div class="it-header-navbar-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        {# Navigation menu principale CKAN integrato in Design Italia #}
+        <nav class="navbar navbar-expand-lg navbar-light">
+          {# Toggle button per mobile #}
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navigation-toggle"
+            aria-controls="main-navigation-toggle" aria-expanded="false" aria-label="{{ _('Toggle navigation') }}">
+            <span class="fa fa-bars text-white"></span>
+          </button>
+
+          {# Menu di navigazione principale #}
+          <div class="main-navbar collapse navbar-collapse" id="main-navigation-toggle">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              {% block header_site_navigation %}
+                {% block header_site_navigation_tabs %}
+                  {% set org_type = h.default_group_type('organization') %}
+                  {% set group_type = h.default_group_type('group') %}
+
+                  {{ h.build_nav_main(
+                    (dataset_type ~ '.search', h.humanize_entity_type('package', dataset_type, 'main nav') or _('Datasets'), ["dataset", "resource"]),
+                    (org_type ~ '.index',
+                      h.humanize_entity_type('organization', org_type, 'main nav') or _('Organizations'), ['organization']),
+                    (group_type ~ '.index',
+                      h.humanize_entity_type('group', group_type, 'main nav') or _('Groups'), ['group']),
+                    ('home.about', _('About')) ) }}
+                {% endblock %}
+            </ul>
+
+            {# Search form #}
+            {% block header_site_search %}
+            <form class="d-flex site-search me-3" action="{% url_for dataset_type ~ '.search' %}" method="get">
+              <label class="d-none" for="field-sitewide-search">
+                {% block header_site_search_label %}
+                  {{ h.humanize_entity_type('package', dataset_type, 'search_placeholder') or _('Search Datasets...') }}
+                {% endblock %}
+              </label>
+              <input id="field-sitewide-search" class="form-control me-2" type="text" name="q" placeholder="{{ _('Search datasets...') }}" 
+                     aria-label="{{ h.humanize_entity_type('package', dataset_type, 'search_placeholder') or _('Search datasets...') }}"/>
+              <button class="btn btn-outline-light" type="submit" aria-label="{{ _('Submit') }}">
+                <i class="fa fa-search"></i>
+              </button>
+            </form>
+            {% endblock %}
+
+            {# User menu - integrato in Design Italia #}
+            <div class="it-right-zone">
+              {% if c.userobj %}
+                {# Utente loggato #}
+                <div class="dropdown">
+                  <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-user me-1"></i>
+                    {{ c.userobj.display_name }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="userMenu">
+                    {% if c.userobj.sysadmin %}
+                      <li>
+                        <a class="dropdown-item" href="{{ h.url_for('admin.index') }}">
+                          <i class="fa fa-gavel me-2"></i>{{ _('Admin') }}
+                        </a>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                    {% endif %}
+                    <li>
+                      <a class="dropdown-item" href="{{ h.url_for('user.read', id=c.userobj.name) }}">
+                        <i class="fa fa-user me-2"></i>{{ _('View profile') }}
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{ h.url_for('dashboard.datasets') }}">
+                        <i class="fa fa-tachometer me-2"></i>{{ _('Dashboard') }}
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{{ h.url_for('user.edit', id=c.userobj.name) }}">
+                        <i class="fa fa-cog me-2"></i>{{ _('Profile settings') }}
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <form action="{{ h.url_for('user.logout') }}" method="post" class="d-inline">
+                        {{ h.csrf_input() }}
+                        <button class="dropdown-item text-danger" type="submit">
+                          <i class="fa fa-sign-out me-2"></i>{{ _('Log out') }}
+                        </button>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+              {% else %}
+                {# Utente non loggato #}
+                <div class="d-flex gap-2">
+                  <a href="{{ h.url_for('user.login') }}" class="btn btn-outline-light">
+                    {{ _('Log in') }}
+                  </a>
+                  {% if h.check_access('user_create') %}
+                    <a href="{{ h.url_for('user.register') }}" class="btn btn-light">
+                      {{ _('Register') }}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

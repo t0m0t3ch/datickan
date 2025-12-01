@@ -1,0 +1,62 @@
+    <footer class="it-footer">
+      <div class="it-footer-main">
+        <div class="container">
+          <section>
+            <div class="row">
+              {# Colonna 1: Contatti #}
+              <div class="col-lg-4 col-md-6 mb-4">
+                <h4>Comune di Brescia</h4>
+                <p>
+                  Piazza Loggia, 1<br>
+                  25121 Brescia<br>
+                  Tel: 030 29771<br>
+                  PEC: protocollo@pec.comune.brescia.it
+                </p>
+              </div>
+              
+              {# Colonna 2: Link utili #}
+              <div class="col-lg-4 col-md-6 mb-4">
+                <h4>Link utili</h4>
+                <ul class="list-unstyled">
+                  <li><a href="https://www.comune.brescia.it">Sito istituzionale</a></li>
+                  <li><a href="https://www.comune.brescia.it/servizi">Servizi online</a></li>
+                  <li><a href="https://www.comune.brescia.it/amministrazione-trasparente">Amministrazione trasparente</a></li>
+                  <li><a href="https://www.comune.brescia.it/uffici">Uffici e orari</a></li>
+                </ul>
+              </div>
+              
+              {# Colonna 3: Open Data #}
+              <div class="col-lg-4 col-md-6 mb-4">
+                <h4>Open Data</h4>
+                <ul class="list-unstyled">
+                  <li><a href="{{ h.url_for('dataset.search') }}">Catalogo dati</a></li>
+                  <li><a href="{{ h.url_for('organization.index') }}">Organizzazioni</a></li>
+                  <li><a href="{{ h.url_for('group.index') }}">Gruppi tematici</a></li>
+                  <li><a href="{{ h.url_for('home.about') }}">Informazioni</a></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      
+      {# Footer bottom #}
+      <div class="it-footer-small-prints">
+        <div class="container">
+          <ul class="it-footer-small-prints-list list-inline mb-0">
+            <li class="list-inline-item">
+              <a href="https://www.comune.brescia.it/informativa-privacy" title="Privacy Policy">Privacy Policy</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.comune.brescia.it/note-legali" title="Note legali">Note legali</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="https://www.comune.brescia.it/accessibilita" title="Accessibilità">Accessibilità</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" title="Dichiarazione di accessibilità">Dichiarazione di accessibilità</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>

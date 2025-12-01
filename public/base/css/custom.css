@@ -1,0 +1,425 @@
+/* custom.css - Tema Comune di Brescia - VERSIONE DEFINITIVA */
+:root {
+  /* Palette ufficiale Comune di Brescia */
+  --bs-brescia-blue: #003366;
+  --bs-brescia-blue-medium: #005C97;
+  --bs-brescia-orange: #E37222;
+  --bs-brescia-orange-dark: #c45c18;
+  --bs-brescia-light: #f8f9fa;
+  --bs-brescia-white: #ffffff;
+  --bs-brescia-dark: #333333;
+  --bs-brescia-gray: #6c757d;
+}
+
+/* ===== RESET E LAYOUT ===== */
+body {
+  font-family: 'Titillium Web', sans-serif;
+  color: var(--bs-brescia-dark);
+  background: var(--bs-brescia-white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 100% !important;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* ===== HEADER DESIGN ITALIA - CORRETTO ===== */
+
+/* Header superiore - FIX MENU SOVRAPPOSTO */
+.it-header-slim-wrapper {
+  background-color: var(--bs-brescia-blue) !important;
+  min-height: 40px;
+  border-bottom: 3px solid var(--bs-brescia-orange);
+  position: relative;
+  z-index: 1000;
+}
+
+.it-header-slim-wrapper .navbar-brand {
+  color: var(--bs-brescia-white) !important;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+/* FIX MENU MOBILE SOVRAPPOSTO */
+.it-header-slim-wrapper .nav-mobile {
+  position: relative;
+  z-index: 1001;
+}
+
+.it-header-slim-wrapper .collapse {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bs-brescia-blue);
+  z-index: 1002;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.it-header-slim-wrapper .link-list {
+  margin: 0;
+  padding: 1rem;
+}
+
+.it-header-slim-wrapper .link-list a {
+  color: var(--bs-brescia-white) !important;
+  padding: 0.5rem 0;
+  display: block;
+}
+
+.it-header-slim-wrapper .link-list a:hover {
+  color: var(--bs-brescia-orange) !important;
+}
+
+/* Header principale */
+.it-header-navbar-wrapper {
+  background-color: var(--bs-brescia-blue-medium) !important;
+  min-height: 120px;
+  position: relative;
+  z-index: 999;
+}
+
+.it-header-center-wrapper {
+  background-color: var(--bs-brescia-blue-medium) !important;
+  padding: 1.5rem 0;
+}
+
+/* Logo e branding - FIX LOGO NON RICONOSCIBILE */
+.it-brand-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.5rem;
+}
+
+.it-brand-image {
+  height: 70px !important;
+  width: auto !important;
+  /* RIMOSSO filter: brightness(0) invert(1); - Mantiene logo originale */
+  max-width: 200px;
+}
+
+.it-brand-text h2 {
+  color: var(--bs-brescia-white) !important;
+  font-size: 1.8rem !important;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0 !important;
+  line-height: 1.1;
+}
+
+.it-brand-text h3 {
+  color: var(--bs-brescia-white) !important;
+  font-size: 1rem !important;
+  font-weight: 400;
+  margin: 0 !important;
+  opacity: 0.9;
+  line-height: 1.3;
+}
+
+/* ===== NAVIGAZIONE PRINCIPALE ===== */
+.navbar-dark {
+  background: transparent !important;
+  padding: 0.75rem 0 0 0;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: var(--bs-brescia-white) !important;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem !important;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+  color: var(--bs-brescia-orange) !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-dark .navbar-nav .nav-item.active .nav-link {
+  color: var(--bs-brescia-orange) !important;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Search form */
+.navbar-dark .form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--bs-brescia-white);
+}
+
+.navbar-dark .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-dark .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--bs-brescia-white);
+}
+
+.navbar-dark .btn-outline-light:hover {
+  background: var(--bs-brescia-orange);
+  border-color: var(--bs-brescia-orange);
+}
+
+/* User menu */
+.navbar-dark .dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
+
+/* ===== CONTENUTO PRINCIPALE - FIX BIANCO SU BIANCO ===== */
+
+/* Main content - FIX LAYOUT NON FULL WIDTH */
+.main {
+  flex: 1;
+  width: 100%;
+  padding-top: 2rem;
+}
+
+#content {
+  max-width: 100% !important;
+  padding: 0 15px;
+}
+
+/* Breadcrumb - FIX DEFINITIVO */
+.breadcrumb {
+  background: transparent !important;
+  padding: 1rem 0 !important;
+  margin: 0 0 2rem 0 !important;
+  border-bottom: 1px solid #e9ecef;
+  width: 100%;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "›";
+  color: var(--bs-brescia-gray);
+  padding: 0 0.5rem;
+}
+
+.breadcrumb-item a {
+  color: var(--bs-brescia-blue-medium);
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--bs-brescia-blue);
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: var(--bs-brescia-dark);
+  font-weight: 500;
+}
+
+/* Hero section */
+.hero {
+  background: linear-gradient(135deg, var(--bs-brescia-blue-medium) 0%, var(--bs-brescia-blue) 100%) !important;
+  color: var(--bs-brescia-white) !important;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0 !important;
+  width: 100%;
+}
+
+.hero h1 {
+  color: var(--bs-brescia-white) !important;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  color: var(--bs-brescia-white) !important;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* ===== FIX PAGE.HTML - BIANCO SU BIANCO ===== */
+
+/* Module headings */
+.module-heading {
+  background: var(--bs-brescia-blue-medium) !important;
+  color: var(--bs-brescia-white) !important;
+  border: none !important;
+  padding: 1rem 1.5rem !important;
+  font-weight: 600;
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.module-content {
+  border: 1px solid #e9ecef;
+  border-radius: 0 0 8px 8px !important;
+  border-top: none !important;
+  background: var(--bs-brescia-white) !important;
+  color: var(--bs-brescia-dark) !important;
+}
+
+/* Page header e tabs */
+.page-header {
+  background: transparent !important;
+  color: var(--bs-brescia-dark) !important;
+  border: none !important;
+}
+
+.nav-tabs .nav-link {
+  color: var(--bs-brescia-blue-medium) !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--bs-brescia-orange) !important;
+  border-color: var(--bs-brescia-orange) !important;
+}
+
+/* Testi generali - FIX BIANCO SU BIANCO */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--bs-brescia-blue) !important;
+}
+
+.text-muted {
+  color: var(--bs-brescia-gray) !important;
+}
+
+/* Secondary sidebar */
+.secondary {
+  background: transparent !important;
+}
+
+.secondary .module-heading {
+  border-radius: 8px !important;
+}
+
+.secondary .module-content {
+  border-radius: 8px !important;
+  border-top: 1px solid #e9ecef !important;
+}
+
+/* Alert messages */
+.alert {
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+.alert-success {
+  background: #d1e7dd !important;
+  color: #0f5132 !important;
+}
+
+.alert-info {
+  background: #cff4fc !important;
+  color: #055160 !important;
+}
+
+.alert-warning {
+  background: #fff3cd !important;
+  color: #664d03 !important;
+}
+
+.alert-danger {
+  background: #f8d7da !important;
+  color: #721c24 !important;
+}
+
+/* Bottoni */
+.btn-primary {
+  background: var(--bs-brescia-blue-medium) !important;
+  border-color: var(--bs-brescia-blue-medium) !important;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: var(--bs-brescia-blue) !important;
+  border-color: var(--bs-brescia-blue) !important;
+}
+
+.btn-secondary {
+  background: var(--bs-brescia-orange) !important;
+  border-color: var(--bs-brescia-orange) !important;
+}
+
+.btn-secondary:hover {
+  background: var(--bs-brescia-orange-dark) !important;
+  border-color: var(--bs-brescia-orange-dark) !important;
+}
+
+/* ===== FOOTER - STILE BRESCIA ===== */
+.it-footer {
+  background: var(--bs-brescia-blue) !important;
+  margin-top: auto;
+  width: 100%;
+}
+
+.it-footer-main {
+  background: var(--bs-brescia-blue) !important;
+  padding: 3rem 0 1.5rem !important;
+}
+
+.it-footer-small-prints {
+  background: var(--bs-brescia-dark) !important;
+  padding: 1rem 0 !important;
+}
+
+.it-footer h4 {
+  color: var(--bs-brescia-orange) !important;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.it-footer a {
+  color: var(--bs-brescia-white) !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.it-footer a:hover {
+  color: var(--bs-brescia-orange) !important;
+}
+
+/* ===== HIDE CKAN DEFAULT HEADERS ===== */
+.account-masthead,
+.masthead {
+  display: none !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .it-brand-wrapper {
+    gap: 1rem;
+  }
+  
+  .it-brand-image {
+    height: 50px !important;
+  }
+  
+  .it-brand-text h2 {
+    font-size: 1.4rem !important;
+  }
+  
+  .it-brand-text h3 {
+    font-size: 0.85rem !important;
+  }
+  
+  .navbar-dark .navbar-nav .nav-link {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.85rem;
+  }
+  
+  .it-header-slim-wrapper .collapse {
+    position: relative;
+  }
+}
