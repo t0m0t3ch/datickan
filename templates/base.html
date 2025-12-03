@@ -4,7 +4,7 @@
 {%- block htmltag -%}
 {% set lang = h.lang() %}
 <!--[if IE 9]> <html lang="{{ lang }}" class="ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="{{ lang }}" {% if h.is_rtl_language() %} dir="rtl" {% endif %} class="it-header-wrapper"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ lang }}" {% if h.is_rtl_language() %} dir="rtl" {% endif %}> <!--<![endif]-->
 {%- endblock -%}
 
   <head{% block headtag %}{% endblock %}>
@@ -26,25 +26,28 @@
       {%- endblock -%}
     </title>
 
+    {# CARICA CSS IN ORDINE CORRETTO #}
     {% block links -%}
       <link rel="shortcut icon" href="{{ g.favicon }}" />
       
-      {# Design Italia CSS #}
-      <link rel="stylesheet" href="{{ h.url_for_static('/base/css/design-italia.css') }}">
-      
-      {# Custom CSS Comune di Brescia #}
-      <link rel="stylesheet" href="{{ h.url_for_static('/base/css/custom.css') }}">
-      
-      {# Font Titillium Web #}
+      {# 1. Font Titillium Web - preload per performance #}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap">
     {% endblock -%}
 
-    {# CKAN styles #}
+    {# 2. Bootstrap da CKAN - DEVE essere caricato PRIMA di Design Italia #}
     {%- block styles %}
       {% set theme = h.get_rtl_theme() if h.is_rtl_language() else g.theme %}
       {% asset theme %}
     {% endblock %}
 
+    {# 3. Design Italia CSS - dipende da Bootstrap #}
+    <link rel="stylesheet" href="{{ h.url_for_static('/base/css/design-italia.css') }}">
+    
+    {# 4. Custom CSS per ultimo - sovrascrive tutto #}
+    <link rel="stylesheet" href="{{ h.url_for_static('/base/css/custom.css') }}">
+
+    {# Altri assets style #}
     {{ h.render_assets('style') }}
     
     {%- block custom_styles %}
@@ -55,8 +58,7 @@
       {%- endif %}
     {% endblock %}
 
-    {%- block head_extras %}
-    {% endblock %}
+    {%- block head_extras %}{% endblock %}
   </head>
 
   <body{% block bodytag %} data-site-root="{{ h.url_for('home.index', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('home.index', qualified=true) }}" {% endblock %}>
@@ -140,14 +142,20 @@
       {% include "footer.html" %}
     {% endblock -%}
 
-    {# ===== SCRIPTS ===== #}
+    {# ===== SCRIPTS IN ORDINE CORRETTO ===== #}
     {%- block scripts %}
-      <script src="{{ h.url_for_static('/base/js/design-italia.js') }}"></script>
-      <script src="{{ h.url_for_static('/base/js/custom.js') }}"></script>
+      {# 1. jQuery + Bootstrap da CKAN - DEVE essere primo #}
       {% asset 'base_js' %}
+
+      {# 2. Design Italia - dipende da Bootstrap #}
+      <script src="{{ h.url_for_static('/base/js/design-italia.js') }}"></script>
+
+      {# 3. Custom sempre per ultimo #}
+      <script src="{{ h.url_for_static('/base/js/custom.js') }}"></script>
+
+      {# Altri assets script #}
+      {{ h.render_assets('script') }}
     {% endblock -%}
 
-    {{ h.render_assets('style') }}
-    {{ h.render_assets('script') }}
   </body>
 </html>
