@@ -1,4 +1,4 @@
-/* custom.css - Tema Comune di Brescia - VERSIONE DEFINITIVA */
+/* custom.css - Tema Comune di Brescia - VERSIONE CORRETTA CONTRASTI */
 :root {
   /* Palette ufficiale Comune di Brescia */
   --bs-brescia-blue: #003366;
@@ -9,13 +9,14 @@
   --bs-brescia-white: #ffffff;
   --bs-brescia-dark: #333333;
   --bs-brescia-gray: #6c757d;
+  --bs-brescia-bg: #f5f7fa;
 }
 
 /* ===== RESET E LAYOUT ===== */
 body {
   font-family: 'Titillium Web', sans-serif;
   color: var(--bs-brescia-dark);
-  background: var(--bs-brescia-white);
+  background: var(--bs-brescia-bg) !important; /* Sfondo grigio chiaro */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -88,7 +89,7 @@ body {
   padding: 1.5rem 0;
 }
 
-/* Logo e branding - FIX LOGO NON RICONOSCIBILE */
+/* Logo e branding */
 .it-brand-wrapper {
   display: flex !important;
   align-items: center !important;
@@ -98,7 +99,6 @@ body {
 .it-brand-image {
   height: 70px !important;
   width: auto !important;
-  /* RIMOSSO filter: brightness(0) invert(1); - Mantiene logo originale */
   max-width: 200px;
 }
 
@@ -168,20 +168,52 @@ body {
   border-color: var(--bs-brescia-orange);
 }
 
-/* User menu */
+/* ===== FIX MENU UTENTE DROPDOWN ===== */
 .navbar-dark .dropdown-menu {
-  border: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 0 !important;
+  margin-top: 0.5rem !important;
+  min-width: 200px;
 }
 
-/* ===== CONTENUTO PRINCIPALE - FIX BIANCO SU BIANCO ===== */
+.navbar-dark .dropdown-menu .dropdown-item {
+  color: var(--bs-brescia-dark) !important;
+  padding: 0.75rem 1.5rem !important;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
 
-/* Main content - FIX LAYOUT NON FULL WIDTH */
+.navbar-dark .dropdown-menu .dropdown-item:hover,
+.navbar-dark .dropdown-menu .dropdown-item:focus {
+  background-color: var(--bs-brescia-light) !important;
+  color: var(--bs-brescia-blue-medium) !important;
+}
+
+.navbar-dark .dropdown-menu .dropdown-divider {
+  border-color: #e9ecef !important;
+  margin: 0.5rem 0 !important;
+}
+
+.navbar-dark .dropdown-menu button.dropdown-item {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* ===== CONTENUTO PRINCIPALE ===== */
+
+/* Main content */
 .main {
   flex: 1;
   width: 100%;
-  padding-top: 2rem;
+  padding: 2rem 0;
+  background: transparent !important;
 }
 
 #content {
@@ -189,12 +221,22 @@ body {
   padding: 0 15px;
 }
 
-/* Breadcrumb - FIX DEFINITIVO */
+/* Primary content - Card bianca */
+.primary {
+  background-color: #ffffff !important;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+/* ===== FIX BREADCRUMB - TESTO SCURO VISIBILE ===== */
 .breadcrumb {
-  background: transparent !important;
-  padding: 1rem 0 !important;
+  background: #ffffff !important;
+  padding: 1rem 1.5rem !important;
   margin: 0 0 2rem 0 !important;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 2px solid #e9ecef;
+  border-radius: 4px;
   width: 100%;
 }
 
@@ -207,25 +249,57 @@ body {
   width: 100%;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-  content: "›";
-  color: var(--bs-brescia-gray);
-  padding: 0 0.5rem;
+.breadcrumb-item,
+.breadcrumb-item a {
+  color: var(--bs-brescia-dark) !important;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
-.breadcrumb-item a {
-  color: var(--bs-brescia-blue-medium);
-  text-decoration: none;
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "›";
+  color: var(--bs-brescia-blue-medium) !important;
+  padding: 0 0.75rem;
+  font-weight: 600;
 }
 
 .breadcrumb-item a:hover {
-  color: var(--bs-brescia-blue);
+  color: var(--bs-brescia-blue-medium) !important;
   text-decoration: underline;
 }
 
 .breadcrumb-item.active {
-  color: var(--bs-brescia-dark);
+  color: var(--bs-brescia-blue) !important;
+  font-weight: 600;
+}
+
+/* ===== FIX DROPDOWN "Order by" E FORM SELECT ===== */
+.form-select,
+select.form-control,
+select {
+  background-color: #ffffff !important;
+  color: var(--bs-brescia-dark) !important;
+  border: 1px solid #ced4da !important;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem !important;
+  font-size: 0.95rem;
   font-weight: 500;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.75rem center !important;
+  background-size: 16px 12px !important;
+}
+
+.form-select option,
+select option {
+  color: var(--bs-brescia-dark) !important;
+  background-color: #ffffff !important;
+  padding: 0.5rem 0.75rem;
+}
+
+.form-select:focus,
+select:focus {
+  border-color: var(--bs-brescia-blue-medium) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 92, 151, 0.25) !important;
 }
 
 /* Hero section */
@@ -250,7 +324,7 @@ body {
   opacity: 0.9;
 }
 
-/* ===== FIX PAGE.HTML - BIANCO SU BIANCO ===== */
+/* ===== MODULI E CARD ===== */
 
 /* Module headings */
 .module-heading {
@@ -268,25 +342,50 @@ body {
   border-top: none !important;
   background: var(--bs-brescia-white) !important;
   color: var(--bs-brescia-dark) !important;
+  padding: 1.5rem;
 }
 
-/* Page header e tabs */
+/* ===== FIX TABS - CONTRASTO MIGLIORATO ===== */
+.nav-tabs .nav-link {
+  color: var(--bs-brescia-dark) !important;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--bs-brescia-blue-medium) !important;
+  border-color: #e9ecef #e9ecef var(--bs-brescia-blue-medium) !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--bs-brescia-blue) !important;
+  background-color: #ffffff !important;
+  border-color: #e9ecef #e9ecef var(--bs-brescia-orange) !important;
+  border-bottom-width: 3px;
+}
+
+/* Page header */
 .page-header {
   background: transparent !important;
   color: var(--bs-brescia-dark) !important;
   border: none !important;
+  margin-bottom: 2rem;
 }
 
-.nav-tabs .nav-link {
-  color: var(--bs-brescia-blue-medium) !important;
+.page-header h1,
+.page-header h2 {
+  color: var(--bs-brescia-blue) !important;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
-.nav-tabs .nav-link.active {
-  color: var(--bs-brescia-orange) !important;
-  border-color: var(--bs-brescia-orange) !important;
+.page-header .content_action {
+  color: var(--bs-brescia-dark) !important;
 }
 
-/* Testi generali - FIX BIANCO SU BIANCO */
+/* Testi generali */
 h1, h2, h3, h4, h5, h6 {
   color: var(--bs-brescia-blue) !important;
 }
@@ -295,18 +394,25 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--bs-brescia-gray) !important;
 }
 
-/* Secondary sidebar */
+/* ===== FIX SIDEBAR - CARD BIANCA ===== */
 .secondary {
-  background: transparent !important;
+  background-color: #ffffff !important;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .secondary .module-heading {
+  background: var(--bs-brescia-blue-medium) !important;
+  color: var(--bs-brescia-white) !important;
   border-radius: 8px !important;
+  margin-bottom: 1rem;
 }
 
 .secondary .module-content {
-  border-radius: 8px !important;
-  border-top: 1px solid #e9ecef !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 1rem;
 }
 
 /* Alert messages */
@@ -339,6 +445,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary {
   background: var(--bs-brescia-blue-medium) !important;
   border-color: var(--bs-brescia-blue-medium) !important;
+  color: #ffffff !important;
   font-weight: 600;
 }
 
@@ -350,6 +457,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-secondary {
   background: var(--bs-brescia-orange) !important;
   border-color: var(--bs-brescia-orange) !important;
+  color: #ffffff !important;
 }
 
 .btn-secondary:hover {
@@ -421,5 +529,10 @@ h1, h2, h3, h4, h5, h6 {
   
   .it-header-slim-wrapper .collapse {
     position: relative;
+  }
+  
+  .primary,
+  .secondary {
+    padding: 1rem;
   }
 }
