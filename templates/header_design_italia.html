@@ -1,64 +1,167 @@
-{# header_design_italia.html - Versione semplificata e funzionale #}
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBrescia">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+{# ===== MODIFICATO PER DESIGN ITALIA - COMUNE DI BRESCIA ===== #}
+{%- block doctype %}<!DOCTYPE html>{% endblock -%}
 
-    <div class="collapse navbar-collapse" id="navbarBrescia">
-      {# Menu principale #}
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ h.url_for('dataset.search') }}">DATASET</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ h.url_for('organization.index') }}">ORGANIZZAZIONI</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ h.url_for('group.index') }}">GRUPPI</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ h.url_for('home.about') }}">INFORMAZIONI</a>
-        </li>
-      </ul>
+{%- block htmltag -%}
+{% set lang = h.lang() %}
+<!--[if IE 9]> <html lang="{{ lang }}" class="ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{ lang }}" {% if h.is_rtl_language() %} dir="rtl" {% endif %}> <!--<![endif]-->
+{%- endblock -%}
 
-      {# Ricerca #}
-      <form class="d-flex me-3" action="{{ h.url_for('dataset.search') }}" method="get">
-        <input class="form-control" type="search" name="q" placeholder="Cerca dataset..." aria-label="Cerca">
-        <button class="btn btn-outline-light ms-2" type="submit">
-          <i class="fa fa-search"></i>
-        </button>
-      </form>
+  <head{% block headtag %}{% endblock %}>
+    {%- block meta -%}
+      <meta charset="utf-8" />
+      <meta name="csrf_field_name" content="{{ g.csrf_field_name }}" />
+      <meta name="{{ g.csrf_field_name }}" content="{{ csrf_token() }}" />
 
-      {# Utente #}
-      <div class="navbar-nav">
-        {% if c.userobj %}
-          <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-              <i class="fa fa-user me-1"></i>{{ c.userobj.display_name }}
-            </a>
-            <ul class="dropdown-menu">
-              {% if c.userobj.sysadmin %}
-                <li><a class="dropdown-item" href="{{ h.url_for('admin.index') }}">Amministrazione</a></li>
-              {% endif %}
-              <li><a class="dropdown-item" href="{{ h.url_for('user.read', id=c.userobj.name) }}">Profilo</a></li>
-              <li><a class="dropdown-item" href="{{ h.url_for('dashboard.datasets') }}">Dashboard</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li>
-                <form action="{{ h.url_for('user.logout') }}" method="post">
-                  {{ h.csrf_input() }}
-                  <button class="dropdown-item" type="submit">Esci</button>
-                </form>
-              </li>
-            </ul>
-          </div>
-        {% else %}
-          <a class="nav-link" href="{{ h.url_for('user.login') }}">ACCEDI</a>
-          {% if h.check_access('user_create') %}
-            <a class="nav-link" href="{{ h.url_for('user.register') }}">REGISTRATI</a>
-          {% endif %}
-        {% endif %}
-      </div>
+      {% block meta_generator %}<meta name="generator" content="ckan {{ h.ckan_version() }}" />{% endblock %}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {%- endblock -%}
+
+    <title>
+      {%- block title -%}
+        {%- block subtitle %}{% endblock -%}
+        {%- if self.subtitle()|trim %} {{ g.template_title_delimiter }} {% endif -%}
+        {{ g.site_title }}
+      {%- endblock -%}
+    </title>
+
+    {# CARICA CSS IN ORDINE CORRETTO #}
+    {% block links -%}
+      <link rel="shortcut icon" href="{{ g.favicon }}" />
+      
+      {# 1. Font Titillium Web - preload per performance #}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap">
+      
+      {# 2. Font Awesome per icone (search, user, etc) #}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% endblock -%}
+
+    {# 3. Bootstrap da CKAN - DEVE essere caricato PRIMA di Design Italia #}
+    {%- block styles %}
+      {% set theme = h.get_rtl_theme() if h.is_rtl_language() else g.theme %}
+      {% asset theme %}
+    {% endblock %}
+
+    {# 4. Design Italia CSS - dipende da Bootstrap #}
+    <link rel="stylesheet" href="{{ h.url_for_static('/base/css/design-italia.css') }}">
+    
+    {# 5. Custom CSS per ultimo - sovrascrive tutto #}
+    <link rel="stylesheet" href="{{ h.url_for_static('/base/css/custom.css') }}">
+
+    {# Altri assets style #}
+    {{ h.render_assets('style') }}
+    
+    {%- block custom_styles %}
+      {%- if g.site_custom_css -%}
+      <style>
+        {{ g.site_custom_css | safe }}
+      </style>
+      {%- endif %}
+    {% endblock %}
+
+    {%- block head_extras %}{% endblock %}
+  </head>
+
+  <body{% block bodytag %} data-site-root="{{ h.url_for('home.index', locale='default', qualified=true) }}" data-locale-root="{{ h.url_for('home.index', qualified=true) }}" {% endblock %}>
+
+    {# ===== SKIPLINKS ===== #}
+    <div class="skiplink">
+      <a href="#main-content" class="visually-hidden-focusable">Vai al contenuto principale</a>
     </div>
-  </div>
-</nav>
+
+    {# ===== HEADER DESIGN ITALIA PERSONALIZZATO ===== #}
+    <header>
+      {# Header superiore - Info Comune #}
+      <div class="it-header-slim-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="it-header-slim-wrapper-content">
+                <a class="d-none d-lg-block navbar-brand" href="https://www.comune.brescia.it">
+                  Comune di Brescia - Piazza Loggia, 1 - 25121 Brescia
+                </a>
+                <div class="nav-mobile">
+                  <nav>
+                    <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#menu-header" role="button" aria-expanded="false" aria-controls="menu-header">
+                      <span>Comune di Brescia</span>
+                      <svg class="icon">
+                        <use xlink:href="{{ h.url_for_static('/base/images/sprite.svg#it-expand') }}"></use>
+                      </svg>
+                    </a>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {# Header principale con logo #}
+      <div class="it-header-navbar-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              {# Logo e brand #}
+              <div class="it-header-center-wrapper">
+                <div class="it-header-center-content-wrapper">
+                  <div class="it-brand-wrapper">
+                    <a href="{{ h.url_for('home.index') }}">
+                      <img src="{{ h.url_for_static('/base/images/logo-comune-brescia.png') }}" alt="Comune di Brescia - Open Data" class="it-brand-image">
+                      <div class="it-brand-text">
+                        <h2 class="no_toc">Open Data</h2>
+                        <h3 class="no_toc d-none d-md-block">Comune di Brescia - Settore Transizione Digitale</h3>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {# Navigation menu Design Italia personalizzato #}
+              {% include "header_design_italia.html" %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {# ===== CONTENUTO CKAN (con header CKAN nascosto ma funzionale) ===== #}
+    <main id="main-content">
+      {# Header CKAN nascosto ma presente per funzionalità #}
+      <div style="display: none;">
+        {% block header %}
+          {% include "header.html" %}
+        {% endblock %}
+      </div>
+
+      {%- block page %}
+        {{ super() }}
+      {% endblock -%}
+    </main>
+
+    {# ===== FOOTER ===== #}
+    {%- block footer %}
+      {% include "footer.html" %}
+    {% endblock -%}
+
+    {# ===== SCRIPTS IN ORDINE CORRETTO ===== #}
+    {%- block scripts %}
+      {# FONDAMENTALE: Bootstrap JS PRIMA di tutto #}
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      
+      {# Poi gli altri script CKAN #}
+      {% asset 'base_js' %}
+
+      {# Design Italia JS #}
+      <script src="{{ h.url_for_static('/base/js/design-italia.js') }}"></script>
+
+      {# Custom JS #}
+      <script src="{{ h.url_for_static('/base/js/custom.js') }}"></script>
+
+      {# Render assets #}
+      {{ h.render_assets('script') }}
+    {% endblock -%}
+
+  </body>
+</html>
