@@ -1,5 +1,9 @@
 {% extends "page.html" %}
 
+{# STEP 1: Skip-link per accessibilità - permette ai lettori di schermo di saltare la nav #}
+<a href="#main-content" class="sr-only">{{ _('Vai al contenuto principale') }}</a>
+
+
 {% block subtitle %}{{ _("Welcome") }}{% endblock %}
 
 {% block maintag %}{% endblock %}
@@ -9,10 +13,12 @@
 <div class="homepage">
   <div id="content" class="container">
     {{ self.flash() }}
+        {# STEP 1: H1 sr-only per SEO e accessibilità - ogni pagina deve avere un h1 #}
+    <h1 class="sr-only">{{ _('Catalogo dati aperto del Comune di Brescia') }}</h1>
   </div>
   {% block primary_content %}
-  <div role="main">
-    <div class="main hero">
+      {# STEP 1: Cambio <div role="main"> in <main id="main-content"> per accessibilità e landmark semantico #}
+      <main id="main-content">    <div class="main hero">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
