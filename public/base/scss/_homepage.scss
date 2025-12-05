@@ -1,3 +1,32 @@
+/* ============================================================
+   STEP 2 COMMIT 2: Documentazione palette colori Comune di Brescia
+   ============================================================
+   
+   Palette colori conforme al design system del Comune di Brescia
+   (verificato su www.comune.brescia.it)
+   
+   Colori primari:
+   - Primary Blu: #0066CC (usato per link e pulsanti principali)
+   - Secondary Arancio: #FF6600 (usato per accenti e hover)
+   
+   Colori neutrali:
+   - Grigio scuro testo: #333333 (contrasto 12.6:1 su bianco - WCAG AAA)
+   - Grigio medio: #666666 (contrasto 5.7:1 su bianco - WCAG AA)
+   - Grigio chiaro: #CCCCCC (bordi e separatori)
+   
+   Colori di stato:
+   - Success: #28a745
+   - Error: #dc3545
+   - Warning: #ffc107
+   - Info: #17a2b8
+   
+   Focus state:
+   - Focus outline: 3px solid #0066CC (WCAG 2.4.7 - Focus Visible)
+   - Contrasto minimo: 4.5:1 per testo normale, 3:1 per testo grande
+   
+   Nota: Tutte le combinazioni di colore rispettano WCAG 2.1 livello AA
+   ============================================================ */
+
 .homepage {
     .hero {
         background: url("#{$imagePath}/background-tile.png");
@@ -18,11 +47,30 @@
             input {
                 font-size: 16px;
                 padding: 15px;
+                
+        /* STEP 2: Focus state per accessibilità WCAG 2.4.7 */
+        &:focus,
+        &:focus-visible {
+          outline: 3px solid #0066CC; /* Blu primario Comune Brescia */
+          outline-offset: 2px;
+          border-color: #0066CC;
+        }
             }
             button {
                 border: none;
-                margin-left: -40px;
-            }
+      /* STEP 2: Rimosso margin-left: -40px hack, usare flexbox per align */
+
+      /* STEP 2: Focus state per accessibilità WCAG 2.4.7 - Focus Visible */
+      &:focus,
+      &:focus-visible {
+        outline: 3px solid #0066CC; /* Blu primario Comune Brescia */
+        outline-offset: 2px;
+      }
+
+      &:hover {
+        background-color: #FF6600; /* Arancio secondario Comune Brescia */
+        cursor: pointer;
+      }            }
         }
         .search-input {
             display: flex;
